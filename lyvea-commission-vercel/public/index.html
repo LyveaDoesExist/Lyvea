@@ -219,7 +219,7 @@ h1,h2,h3,summary,th,.btn,.pillbtn,b,strong,.filters button,.pill,.chip,.tag,.xf,
 .lead{font-size:16.5px}
 .tag{font-size:13px}.row{font-size:14.5px}
 .step small,.sn{font-weight:600!important;font-size:14.5px!important;opacity:1!important;color:var(--soft)!important}
-.c-Paid{background:#d5f0e0;color:#2a7547}.xbio{font-size:12px;color:var(--soft);line-height:1.5;margin:4px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-align:left}.xa img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+#eform[data-t=xav]{--ec:#e08fb0}.c-Paid{background:#d5f0e0;color:#2a7547}.xbio{font-size:12px;color:var(--soft);line-height:1.5;margin:4px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-align:left}.xa img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 footer{position:relative;z-index:1;text-align:center;color:var(--soft);padding:20px 0 40px;font-size:13px}
 .steps{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin:10px 0 18px}
 .steps .step{flex:1 1 260px;max-width:calc((100% - 36px)/3)}
@@ -400,17 +400,18 @@ if(RM){intro.classList.add("done")}else{iv=setInterval(()=>{pc+=Math.random()*9+
 $("skip").onclick=endIntro;
 /* ===== edit mode ===== */
 let canEdit=false;
-const TC={tiers:"#4f9bd0",addon:"#e08fb0",queue:"#d9a21e",videos:"#a98bd0",gen:"#5fbf86"};const T=(t,l)=>`<button class="pillbtn" style="border-color:${TC[t]};${t===tab?`background:${TC[t]};color:#fff`:`color:${TC[t]}`}" data-tab="${t}">${l}</button>`;
+const TC={tiers:"#4f9bd0",addon:"#e08fb0",queue:"#d9a21e",videos:"#a98bd0",gen:"#5fbf86",xav:"#e08fb0"};const T=(t,l)=>`<button class="pillbtn" style="border-color:${TC[t]};${t===tab?`background:${TC[t]};color:#fff`:`color:${TC[t]}`}" data-tab="${t}">${l}</button>`;
 function inp(path,v,l,w,type){return `<label>${l}<input ${w?'class="w"':""} ${type==="n"?'type="number"':""} data-p="${path}" value="${esc(v)}"></label>`}
 function cb(path,v,l){return `<label class="cb"><input type="checkbox" data-p="${path}" ${v?"checked":""}>${l}</label>`}
 function del(k,i){return `<button class="btn s o" data-del="${k}:${i}" type="button">ลบ</button>`}
 function eform(){
-  $("tabs").innerHTML=T("tiers","Rate")+T("addon","Add-On")+T("queue","Queue")+T("videos","Showcase")+T("gen","ทั่วไป");
+  $("tabs").innerHTML=T("tiers","Rate")+T("addon","Add-On")+T("queue","Queue")+T("videos","Showcase")+T("gen","ทั่วไป")+T("xav","รูปพาร์ทเนอร์");
   let h="";
   if(tab==="tiers")h=D.tiers.map((x,i)=>`<div class="erow">${inp(`tiers.${i}.n`,x.n,"ชื่อ")}${inp(`tiers.${i}.p`,x.p,"ราคา","","n")}${inp(`tiers.${i}.tg`,x.tg,"Toggle")}${inp(`tiers.${i}.ph`,x.ph,"ฟิสิกส์")}${inp(`tiers.${i}.t`,x.t,"ระยะเวลา")}${inp(`tiers.${i}.top`,x.top||"","ป้ายพิเศษ")}<span class="mono">หัว</span>${["X","Y","Z"].map((l,k)=>cb(`tiers.${i}.h.${k}`,x.h[k],l)).join("")}<span class="mono">ตัว</span>${["X","Y","Z"].map((l,k)=>cb(`tiers.${i}.b.${k}`,x.b[k],l)).join("")}${del("tiers",i)}</div>`).join("")+`<button class="btn s" data-add="tiers" type="button">＋ เพิ่ม Tier</button>`;
   if(tab==="addon")h=D.addon.map((a,i)=>`<div class="erow">${inp(`addon.${i}.0`,a[0],"รายการ")}${inp(`addon.${i}.1`,a[1],"ราคา","","n")}${inp(`addon.${i}.2`,a[2],"System")}${del("addon",i)}</div>`).join("")+`<button class="btn s" data-add="addon" type="button">＋ เพิ่ม Add-On</button>`;
   if(tab==="queue")h=(SHEET?`<p class="mono" style="margin-bottom:10px">คิวและสถานะดึงจากชีต Google อัตโนมัติ · แก้ในชีตแทน การแก้ตรงนี้จะถูกแทนที่</p>`:"")+D.queue.map((r,i)=>`<div class="erow">${["Name","Type","Tier","Platform","Payment"].map((l,k)=>inp(`queue.${i}.${k}`,r[k],l)).join("")}<label>Progress<select data-p="queue.${i}.5">${["WIP","Briefing","on hold","Finished"].map(o=>`<option ${o===r[5]?"selected":""}>${o}</option>`).join("")}</select></label>${inp(`queue.${i}.6`,r[6],"Month")}${del("queue",i)}</div>`).join("")+`<button class="btn s" data-add="queue" type="button">＋ เพิ่มคิว</button>`;
   if(tab==="videos")h=`<div class="erow">${inp("playlist",D.playlist||"","Playlist ID หรือลิงก์เพลย์ลิสต์",1)}</div><p class="mono">วิดีโอ ชื่อ และภาพพรีวิว ดึงจากเพลย์ลิสต์ YouTube อัตโนมัติ (รีเฟรชทุกครึ่งชั่วโมง)</p>`;
+  if(tab==="xav"){D.xavatars=D.xavatars||{};h=`<p class="mono" style="margin-bottom:10px">รูปโปรไฟล์ดึงอัตโนมัติจาก X ถ้ารูปไม่ขึ้น ให้วางลิงก์รูปที่นี่ (คลิกขวาที่รูปโปรไฟล์ใน X แล้วเลือก Copy image address) ช่องที่กรอกจะใช้แทนการดึงอัตโนมัติ · กดบันทึกแล้วรีเฟรชหน้าเว็บ</p>`+qa(".xc[data-h]").map(a=>a.dataset.h).map(x=>`<div class="erow">${inp("xavatars."+x,D.xavatars[x]||"","@"+x,1)}</div>`).join("")}
   if(tab==="gen")h=`<div class="erow"><label>Status<select data-p="status">${["OPEN","CLOSED"].map(o=>`<option ${o===D.status?"selected":""}>${o}</option>`).join("")}</select></label>${inp("updated",D.updated,"อัปเดตล่าสุด (D/M/Y)")}</div>`;
   $("eform").dataset.t=tab;$("eform").innerHTML=h;
 }
@@ -448,11 +449,12 @@ $("pub").onclick=async()=>{
 $("cpj").onclick=async()=>{const j=JSON.stringify(D,null,1);try{await navigator.clipboard.writeText(j);msg("คัดลอกแล้ว ✦")}catch(e){prompt("คัดลอก JSON นี้",j)}};
 try{canEdit=!!sessionStorage.getItem("pw")}catch(e){}
 (async()=>{
- try{const r=await fetch("/api/data",{cache:"no-store"});if(r.ok){D=await r.json();D.videos=D.videos||[];VL=D.videos;render();eform()}}catch(e){}
+ try{const r=await fetch("/api/data",{cache:"no-store"});if(r.ok){D=await r.json();D.videos=D.videos||[];VL=D.videos;render();eform();loadXAv()}}catch(e){}
  try{const r=await fetch("/api/sheet");if(r.ok){const j=await r.json();if(j.queue&&j.queue.length){D.queue=j.queue;if(j.status)D.status=j.status;if(j.updated)D.updated=j.updated;SHEET=true;render();eform()}}}catch(e){}
  try{const r=await fetch("/api/playlist?list="+encodeURIComponent(D.playlist||""));if(r.ok){const j=await r.json();if(j.items&&j.items.length){VL=j.items.map(x=>({id:x.id,title:x.title,img:x.thumb}));render()}}}catch(e){}
 })();
-qa(".xc[data-h]").forEach(a=>{const im=new Image();im.alt="";im.onload=()=>{const x=a.querySelector(".xa");x.innerHTML="";x.appendChild(im)};im.src="https://unavatar.io/x/"+encodeURIComponent(a.dataset.h)+"?ttl=1h&fallback=false"});
+function loadXAv(){qa(".xc[data-h]").forEach(a=>{const h=a.dataset.h,mm=D.xavatars||{},m=mm[h]||mm[h.toLowerCase()],e=encodeURIComponent(h),urls=(m?[m]:[]).concat(["https://unavatar.io/x/"+e+"?ttl=1h&fallback=false","https://unavatar.io/twitter/"+e+"?ttl=1h&fallback=false"]);const nx=i=>{if(i>=urls.length)return;const im=new Image();im.alt="";im.referrerPolicy="no-referrer";im.onload=()=>{const x=a.querySelector(".xa");x.innerHTML="";x.appendChild(im)};im.onerror=()=>nx(i+1);im.src=urls[i]};nx(0)})}
+loadXAv();
 render();eform();go((location.hash||"#home").slice(1));
 </script>
 </body>
