@@ -38,12 +38,12 @@ header.bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-c
 #mx{position:absolute;top:14px;right:22px}
 /* curtain & intro */
 #cur{position:fixed;inset:0;z-index:80;pointer-events:none;overflow:hidden}
-#cur i{position:absolute;left:-5%;width:110%;top:0;height:150vh;color:var(--sky-d);background:currentColor;transform:translateY(110vh);will-change:transform}
-#cur i:nth-child(2){color:var(--sky)}#cur i:nth-child(3){color:var(--bg)}
-#cur i::before{content:"";position:absolute;left:0;right:0;top:-79px;height:80px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 80'%3E%3Cpath d='M0 40Q60 0 120 40T240 40V80H0Z'/%3E%3C/svg%3E") 0 0/240px 80px repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 80'%3E%3Cpath d='M0 40Q60 0 120 40T240 40V80H0Z'/%3E%3C/svg%3E") 0 0/240px 80px repeat-x;animation:wv 1.3s linear infinite}
-#cur i:nth-child(2)::before{animation-duration:1.9s;animation-direction:reverse}
-@keyframes wv{to{-webkit-mask-position:240px 0;mask-position:240px 0}}
-#curlab{position:fixed;inset:0;z-index:81;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;opacity:0;text-align:center;color:var(--sky-d);font-size:clamp(34px,9vw,96px);line-height:1.1}
+#cur .blue{position:absolute;left:50%;top:50%;width:200px;height:200px;margin:-100px 0 0 -100px;border-radius:50%;background:var(--sky-d);transform:scale(0);will-change:transform}
+#curlab svg{display:block;margin:0 auto 14px;overflow:visible}
+:root[data-theme="dark"] #curlab{color:#10202a}
+.sf{font-size:.8em;font-style:normal;color:var(--sky-d);animation:spin 6s linear infinite;line-height:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+#curlab{position:fixed;inset:0;z-index:81;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;opacity:0;text-align:center;color:#fff;font-size:clamp(18px,3.4vw,26px);line-height:1.5;letter-spacing:.2em;text-transform:uppercase}
 #curlab small{display:block;font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.3em;font-style:normal}
 #intro{position:fixed;inset:0;z-index:100;background:var(--sky-l);display:grid;place-items:center;text-align:center;transition:transform .9s cubic-bezier(.8,0,.2,1)}
 #intro.done{transform:translateY(-101%)}
@@ -126,7 +126,8 @@ summary{cursor:pointer;font-weight:700;color:var(--sky-d)}details ul{margin:10px
 .partners{display:flex;flex-wrap:wrap;gap:10px}.partners a{padding:3px 16px;font-size:14px}
 /* videos */
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-.vid{display:block;transition:.3s}.vid:hover{transform:translateY(-6px)}
+#vgrid>:not(.vid){display:none!important}
+.vid{display:block;transition:.3s;cursor:pointer}.vid:hover{transform:translateY(-6px)}
 .th{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,var(--sky),var(--main));border:2px solid var(--line);display:grid;place-items:center}
 .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .th .pl{position:relative;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.88);color:var(--sky-d);display:grid;place-items:center;font-size:20px;transition:.3s}
@@ -197,6 +198,14 @@ input,select{border:1.5px solid color-mix(in srgb,var(--ec,#4f9bd0) 55%,var(--li
 input:focus,select:focus{outline:2px solid var(--ec,#4f9bd0)}input[type=checkbox]{accent-color:var(--ec,#4f9bd0)}
 #emsg{font-weight:700;color:var(--sky-d)}
 .tos summary .mono{color:var(--sky-d);margin-right:6px}
+.hi b{font-size:1.25em;color:var(--ink)}
+.open{margin:0 0 22px}.open ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0;padding:0}
+.open li{background:var(--card);border:1.5px solid var(--sky);border-radius:99px;padding:2px 14px;font-size:14px;font-weight:700;color:var(--sky-d)}
+.ca{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;padding:6px 4px;border-bottom:1px dashed var(--line)}.ca small{color:var(--soft)}
+.qty{display:inline-flex;align-items:center;gap:8px}.qty b{min-width:18px;text-align:center}
+.qty button{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--sky);background:var(--sky-l);color:var(--sky-d);font-weight:700;cursor:pointer;line-height:1}
+.qty button:hover{background:var(--sky);color:#1f4a66}
+.xbio{font-size:12px;color:var(--soft);line-height:1.5;margin:4px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-align:left}.xa img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 footer{position:relative;z-index:1;text-align:center;color:var(--soft);padding:20px 0 40px;font-size:13px}
 .steps{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin:10px 0 18px}
 .steps .step{flex:1 1 260px;max-width:calc((100% - 36px)/3)}
@@ -215,7 +224,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--soft);padding:2
 
 <div id="intro"><button id="skip" class="mono" type="button">SKIP ›</button>
   <div><div class="mono">✦ Live2D Rigging Commissions ✦</div><h2 class="disp">Lyvea Eve</h2><div id="bar"><i></i></div><div id="cnt">000</div></div></div>
-<div id="cur" aria-hidden="true"><i></i><i></i><i></i></div>
+<div id="cur" aria-hidden="true"><div class="blue"></div></div>
 <div id="curlab" class="disp" aria-hidden="true"></div>
 
 <header class="bar">
@@ -231,7 +240,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--soft);padding:2
   <div class="htext">
     <div class="rv"><span class="badge mono" id="badge"><span class="dot"></span><span id="stt">STATUS : OPEN</span></span></div>
     <h1 class="disp rv">Live2D <em>Rigging</em><br>Commission ✧</h1>
-    <p class="sub rv">สวัสดีค่ะ อีฟเองค่ะ ◡̈ รับริกโมเดล Live2D ด้วยความตั้งใจและใส่ใจทุกรายละเอียด<br>(งานวาดรับเฉพาะโมเดลนะคะ 🙇)<br><span class="mono">SESSION <span id="clk">00:00:00</span></span></p>
+    <p class="sub rv hi"><b>สวัสดีค่ะ อีฟเองค่ะ!</b><br>Live2d Modeler จากประเทศไทย</p><div class="open rv"><span class="mono">Commissions Open For</span><ul><li>Live2d Model Rigging</li><li>Live2d Model Art</li><li>Live2d Motion</li></ul><p class="mono" style="margin-top:10px">SESSION <span id="clk">00:00:00</span></p></div>
     <div class="rv"><a class="btn" href="#contact">สั่งงาน ›</a><a class="btn o" href="#cost">ดูเรทงาน</a></div>
     <div class="menu4 rv" id="menu4" data-r></div>
   </div>
@@ -270,7 +279,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--soft);padding:2
   <h3 class="sec disp rv">Terms of Service</h3><div class="panel rv" style="margin-bottom:14px"><b>ข้อตกลงการใช้บริการ (TOS) งานริกโมเดล Live2D</b><p style="font-size:14px;color:var(--soft)">การชำระเงินมัดจำหรือค่างานถือว่าลูกค้าได้อ่านและยอมรับข้อตกลงนี้ทั้งหมดแล้ว โดยลูกค้าจะต้องยืนยันการอ่านและยอมรับในแบบฟอร์มบรีฟก่อนโอนเงินทุกครั้ง</p></div><div class="rv tos"><details open><summary><span class="mono">01</span> ขอบเขตงาน</summary><ul><li>ขอบเขตงานเป็นไปตามบรีฟที่ลูกค้ายืนยันเป็นลายลักษณ์อักษร (แชตหรือฟอร์ม) เท่านั้น</li><li>บรีฟที่ยืนยันแล้วถือเป็นเกณฑ์ตัดสินว่างาน “ตรงบรีฟ” หรือไม่ ข้อความที่พูดคุยหรือเปลี่ยนแปลงภายหลังจะนับเมื่อทั้งสองฝ่ายยืนยันแล้วเท่านั้น</li><li>งานที่เกินขอบเขตบรีฟ เช่น ท่าทางพิเศษ ฟังก์ชันเสริม หรือโมเดลหลายเวอร์ชัน จะพิจารณาและแจ้งราคาเป็นรายข้อ และจะไม่เริ่มทำจนกว่าลูกค้าจะตกลง</li></ul></details><details><summary><span class="mono">02</span> ไฟล์ต้นฉบับ (PSD)</summary><ul><li>ลูกค้าต้องส่งไฟล์ที่แยกเลเยอร์ครบและเรียบร้อยตามที่ตกลง</li><li>หากต้องแยกพาร์ทเพิ่มหรือซ่อมไฟล์ จะคิดค่าบริการเพิ่ม หรือส่งไฟล์กลับให้ลูกค้าแก้ไข</li><li>หากการแยกพาร์ทไม่เหมาะสมจนกระทบความเคลื่อนไหวของโมเดล ไม่ถือเป็นความผิดของผู้รับงาน</li><li>การเปลี่ยนแปลงดีไซน์หรือไฟล์ PSD หลังเริ่มงาน ถือเป็นงานแก้ไขที่อาจคิดค่าใช้จ่ายเพิ่ม เพราะอาจต้องริกบางส่วนใหม่</li></ul></details><details><summary><span class="mono">03</span> ลักษณะการทำงานและข้อจำกัดหน้างาน</summary><ul><li>เนื่องจากรูปแบบการทำงานมีข้อจำกัดในหลายจุด ผู้รับงานจึงจำเป็นต้องมีความยืดหยุ่นในการทำงานค่อนข้างสูง ทำให้อาจไม่รองรับการกำหนดรายละเอียดที่เข้มงวดหรือการควบคุมกระบวนการในทุกขั้นตอน โปรดพิจารณาขอบเขตงานดังกล่าวก่อนตกลงจ้างงาน</li><li>อาจมีข้อจำกัดที่พบได้ระหว่างทำงานจริง หลายส่วนไม่สามารถประเมินได้ตั้งแต่เริ่มต้น เช่น ข้อจำกัดของโมเดล ไฟล์ หรือโปรแกรมที่ใช้ ผู้รับงานจะแจ้งลูกค้าและเสนอแนวทางแก้ไขที่เหมาะสม ซึ่งผลลัพธ์อาจแตกต่างจากที่คาดไว้เล็กน้อย</li><li>ข้อนี้ใช้เพื่อกำหนดกรอบความคาดหวังให้อยู่ในขอบเขตที่ตกลงกันเท่านั้น แต่ผู้รับงานยังคงรับประกันว่างานจะตรงตามบรีฟที่ยืนยันแล้ว</li></ul></details><details><summary><span class="mono">04</span> การอนุมัติเป็นขั้นตอน</summary><ul><li>งานแบ่งเป็นขั้นตอน เช่น เช็กพาร์ท, ริกพื้นฐาน, ริกละเอียดและฟิสิกส์, ทดสอบ ลูกค้าต้องตรวจและแจ้งอนุมัติแต่ละขั้น</li><li>ลูกค้ามีเวลาตรวจแต่ละขั้น 3 ถึง 5 วัน หากไม่ตอบกลับหลังผู้รับงานแจ้งเตือนในแชตแล้ว ถือว่าอนุมัติขั้นนั้น</li><li>เมื่ออนุมัติแล้วถือว่าขั้นนั้นผ่าน การขอแก้ย้อนหลังในขั้นที่อนุมัติแล้วคิดเป็นงานแก้ไข</li></ul></details><details><summary><span class="mono">05</span> การแก้ไข</summary><ul><li><b>บั๊กหรือข้อผิดพลาดจากการริก</b> แก้ไขให้ฟรี</li><li><b>การเปลี่ยนแปลงตามความต้องการใหม่ หรือแก้ในขั้นที่อนุมัติแล้ว</b> คิดค่าแก้ไข 100 บาทต่อครั้ง (หรือแจ้งราคาเป็นรายข้อหากเป็นการแก้ใหญ่)</li><li>หลังจบกระบวนการทั้งหมดและชำระเงินครบ ลูกค้ามีเวลา 1 สัปดาห์ในการทดสอบและตรวจเช็คงาน หากเกินกำหนด หรือขอแก้ไขนอกเหนือข้อผิดพลาดของการริก จะคิดค่าแก้ไข 100 บาทต่อครั้ง</li></ul></details><details><summary><span class="mono">06</span> กำหนดส่งและเส้นตาย</summary><ul><li>กำหนดส่งงานเป็นไปตามที่ตกลงในแชตหรือใบสั่งงาน</li><li>ผู้รับงานอาจขอขยายเวลาได้ไม่เกิน 1 ถึง 3 สัปดาห์ต่อหนึ่งงาน เนื่องจากตารางงานหรือเหตุจำเป็นส่วนตัว โดยจะแจ้งลูกค้าล่วงหน้า</li><li>หากเลยกำหนดที่ขยายแล้ว ลูกค้าสามารถยกเลิกงานได้ และจะได้รับเงินคืนตามข้อตกลงในข้อ 8 พร้อมทั้งมีการส่งมอบไฟล์โปรเจกต์ตามความคืบหน้าล่าสุด</li><li>การล่าช้าที่เกิดจากฝั่งลูกค้า เช่น ส่งไฟล์ช้า ตอบช้า หรือเปลี่ยนแปลงบรีฟ จะไม่นับรวมเป็นความล่าช้าของผู้รับงาน และกำหนดส่งจะเลื่อนตามระยะเวลาดังกล่าว</li></ul></details><details><summary><span class="mono">07</span> การชำระเงิน</summary><ul><li>ชำระตามงวดที่แจ้งไว้ในใบสั่งงาน และผู้รับงานเริ่มงานเมื่อได้รับเงินงวดแรก</li><li>ไฟล์ส่งมอบฉบับสมบูรณ์จะส่งให้เมื่อชำระเงินครบแล้วเท่านั้น</li></ul></details><details><summary><span class="mono">08</span> การยกเลิกและการคืนเงิน</summary><ul><li><b>การยกเลิกโดยลูกค้า:</b> ลูกค้าสามารถยกเลิกงานได้ทุกขั้นตอนก่อนการส่งมอบงานขั้นสุดท้าย โดยการคืนเงินจะคำนวณจากสัดส่วนความคืบหน้าของงานตามขั้นตอนที่แจ้งไว้ หากยอดเงินที่ชำระมาแล้วสูงกว่ามูลค่าของงานที่ทำไป ผู้รับงานจะคืนเงินเฉพาะส่วนต่างที่เกินมาเท่านั้น หากยอดที่ชำระไม่เกินมูลค่าความคืบหน้า จะไม่มีการคืนเงินทุกกรณี (รวมถึงการยกเลิกเนื่องจากการเปลี่ยนใจ ความไม่พึงพอใจส่วนบุคคล หรือการเปลี่ยนข้อกำหนดภายหลัง)</li><li><b>กรณีความผิดของผู้รับงาน:</b> หากผู้รับงานเป็นฝ่ายผิดเงื่อนไขอย่างชัดเจน เช่น ไม่ส่งมอบงาน ทิ้งงาน หรือผลงานไม่ตรงตามบรีฟที่ได้รับการยืนยันและปฏิเสธการแก้ไข ผู้รับงานจะดำเนินการคืนเงินตามสมควรตามสัดส่วนความเสียหายที่เกิดขึ้น</li></ul></details><details><summary><span class="mono">09</span> การแก้ไขปัญหาและการชดเชย</summary><ul><li>ความไม่ตรงบรีฟ หมายถึง ผลงานมีความบกพร่อง ไม่เป็นไปตามสเปก หรือขาดพารามิเตอร์ที่ระบุไว้ในบรีฟอย่างชัดเจน ทั้งนี้ ไม่รวมถึงความไม่พึงพอใจในสไตล์งาน รสนิยมส่วนบุคคล หรือการมีความคาดหวังในรายละเอียดที่ไม่อาจวัดผลได้เชิงเทคนิค ซึ่งไม่ได้มีการระบุเป็นลายลักษณ์อักษรไว้ในบรีฟที่ยืนยันแล้ว</li><li>หากเกิดข้อผิดพลาดหรือความไม่ตรงบรีฟ ผู้รับงานจะแก้ไขหรือชดเชยตามสมควร (เช่น แก้ฟรี ลดราคา หรือคืนเงินบางส่วนตามส่วนที่ผิด) โดยเมื่อลูกค้ายอมรับการแก้ไขหรือการชดเชยแล้ว ถือว่าประเด็นนั้นยุติ จะนำมาเป็นเหตุเรียกร้องหรือขอคืนเงินเพิ่มอีกไม่ได้ หากยกเลิกงานหลังจากนั้นให้เป็นไปตามเงื่อนไขข้อ 8</li><li>ผู้รับงานจะสรุปสิ่งที่ตกลงกันเป็นข้อความในแชตเมื่อมีการแก้ไขหรือชดเชย หากลูกค้าไม่คัดค้านภายใน 3 วัน ถือว่ายอมรับตามที่สรุป</li></ul></details><details><summary><span class="mono">10</span> การส่งมอบและการทดสอบ</summary><ul><li>ไฟล์ส่งมอบ: ไฟล์ใช้งาน (moc3, model3.json, texture และไฟล์ที่เกี่ยวข้อง) ไม่รวมไฟล์ต้นฉบับ (.cmo3) เว้นแต่ตกลงซื้อเพิ่มในราคาแยก</li><li>ผู้รับงานทดสอบบนโปรแกรมและเวอร์ชันที่ระบุในบรีฟ (เช่น VTube Studio) และส่งวิดีโอหรือภาพทดสอบประกอบการส่งมอบ</li><li>ไม่รับประกันการทำงานบนโปรแกรมอื่น หรือการตั้งค่าเฉพาะบุคคล เช่น เว็บแคม อุปกรณ์ หรือระบบติดตามใบหน้าของลูกค้า</li><li>เมื่อลูกค้ายืนยันรับงานหรือเมื่อพ้นระยะเวลาตรวจรับตามข้อ 5 ถือว่าส่งมอบเรียบร้อย</li></ul></details><details><summary><span class="mono">11</span> สิทธิ์การใช้งานและทรัพย์สินทางปัญญา</summary><ul><li>งานคอมมิชชันรวมสิทธิ์การใช้งานเชิงธุรกิจและเชิงพาณิชย์แล้ว โดยศิลปินยังคงเป็นเจ้าของลิขสิทธิ์ของผลงานตลอดกระบวนการสร้างสรรค์และหลังส่งมอบ</li><li>ห้ามนำโมเดลไปขายต่อ แจกจ่าย หรือดัดแปลงเพื่อจำหน่ายต่อโดยไม่ได้รับอนุญาต หากต้องการให้บุคคลอื่นแก้ไขต่อ ต้องแจ้งและตกลงเงื่อนไขกับผู้รับงานก่อนดำเนินการทุกครั้ง</li><li>ลูกค้ารับรองว่าตนมีสิทธิ์ใช้งานอาร์ตต้นฉบับที่ส่งมา และอนุญาตให้ริกและดัดแปลงเป็นโมเดลได้ หากมีข้อพิพาทเรื่องลิขสิทธิ์ของอาร์ตต้นฉบับ ลูกค้าเป็นผู้รับผิดชอบแต่เพียงผู้เดียวทั้งสิ้น</li></ul></details><details><summary><span class="mono">12</span> การเผยแพร่ผลงาน</summary><ul><li>ผู้รับงานสามารถโพสต์ผลงานที่เสร็จสมบูรณ์ รวมถึงวิดีโอเบื้องหลังหรือ timelapse ลงโซเชียลมีเดีย และใช้ในการโฆษณาผลงานในอนาคต โดยจะโพสต์หลังลูกค้าเปิดตัวตัวละครหรือโมเดลแล้วเท่านั้น</li><li>หากลูกค้าไม่ต้องการให้เผยแพร่ กรุณาแจ้งก่อนเริ่มงานหรือก่อนส่งมอบ</li><li>หากผลงานมีใบหน้า เสียง หรือข้อมูลที่ระบุตัวตนจริงของลูกค้า ผู้รับงานจะไม่เผยแพร่ส่วนนั้นโดยไม่ได้รับอนุญาตทุกกรณี</li></ul></details><details><summary><span class="mono">13</span> ข้อห้าม</summary><ul><li>ห้ามนำผลงานของศิลปินไปใช้เทรน AI</li><li>ห้ามนำผลงานของศิลปินไปเกี่ยวข้องกับ NFT หรือการซื้อขายและแลกเปลี่ยนด้วยคริปโตเคอร์เรนซี</li></ul></details><details><summary><span class="mono">14</span> การติดต่อและหลักฐาน</summary><ul><li>การติดต่อ บรีฟ การอนุมัติ และข้อตกลงต่าง ๆ ให้ทำผ่านช่องทางแชตที่ใช้รับงาน ซึ่งถือเป็นหลักฐานระหว่างทั้งสองฝ่าย</li><li>ผู้รับงานขอสงวนสิทธิ์ปฏิเสธหรือยุติงานหากลูกค้ามีพฤติกรรมไม่สุภาพ คุกคาม หรือกดดันเกินสมควร โดยจะคืนเงินตามหลักข้อ 8</li></ul></details></div>
 </div></section>
 
-<section class="page" id="p-contact"><div class="wrap"><svg class="deco" viewBox="0 0 1000 900" aria-hidden="true"><circle cx="900" cy="120" r="90" fill="var(--sky)" opacity=".28"/><circle cx="60" cy="520" r="60" fill="var(--main)" opacity=".3"/><path d="M820 700l40 70-40 70-40-70z" fill="var(--sky-d)" opacity=".18"/><path d="M80 60l30 52-30 52-30-52z" fill="var(--main-d)" opacity=".2"/><path d="M0 860q120-60 240 0t240 0 240 0 240 0v40H0z" fill="var(--sky)" opacity=".25"/><rect x="760" y="330" width="120" height="120" rx="34" fill="none" stroke="var(--sky-d)" stroke-width="2" stroke-dasharray="6 8" opacity=".5"/></svg><div class="ph rv"><div class="no disp">05</div><h1 class="disp">Contact</h1><p>ติดต่อสั่งงาน ✦ ขอบคุณที่สนใจงานเรานะคะ (´▽`ʃ♡ƪ)</p></div><div class="chn rv"><a class="chc" style="--c:#e08fb0" href="mailto:lyveaforwork@gmail.com"><i>✉</i><b>Email</b><span>lyveaforwork@gmail.com</span></a><a class="chc" style="--c:#4f9bd0" href="https://twitter.com/LyveaForWork" target="_blank" rel="noopener"><i>𝕏</i><b>Twitter</b><span>@LyveaForWork</span></a><a class="chc" style="--c:#e0655f" href="https://www.youtube.com/@LyveaVEve" target="_blank" rel="noopener"><i>▶</i><b>YouTube</b><span>@LyveaVEve</span></a><a class="chc" style="--c:#a98bd0" href="https://vgen.co/LyveaV_Eve" target="_blank" rel="noopener"><i>★</i><b>VGen</b><span>LyveaV_Eve</span></a></div><h3 class="sec disp rv">Studio at a glance</h3><div class="glance rv" id="glance" data-r></div><h3 class="sec disp rv">Partners · นักวาดโมเดล</h3><p class="mono rv" style="margin:-4px 0 12px">จ้างพาร์ทเนอร์วาดโมเดล มีส่วนลดพิเศษ</p><div class="xgrid rv"><a class="xc" style="--c:#4f9bd0" href="https://x.com/804_lunchB" target="_blank" rel="noopener"><div class="xb"></div><div class="xa">80</div><b>804_lunchB</b><span class="mono">@804_lunchB</span><span class="xf">𝕏 ดูโปรไฟล์ ↗</span></a><a class="xc" style="--c:#e08fb0" href="https://x.com/Meganejin_" target="_blank" rel="noopener"><div class="xb"></div><div class="xa">ME</div><b>Meganejin_</b><span class="mono">@Meganejin_</span><span class="xf">𝕏 ดูโปรไฟล์ ↗</span></a><a class="xc" style="--c:#5fbf86" href="https://x.com/RLanz_Tn" target="_blank" rel="noopener"><div class="xb"></div><div class="xa">RL</div><b>RLanz_Tn</b><span class="mono">@RLanz_Tn</span><span class="xf">𝕏 ดูโปรไฟล์ ↗</span></a></div><h3 class="sec disp rv">Assistants · ผู้ช่วย</h3><div class="xgrid rv"><div class="xc" style="--c:#a98bd0"><div class="xb"></div><div class="xa">AR</div><b>Antony Rex</b><span class="mono">Assistant</span></div><div class="xc" style="--c:#e3b341"><div class="xb"></div><div class="xa">KR</div><b>Kreecha</b><span class="mono">Assistant</span></div></div></div></section>
+<section class="page" id="p-contact"><div class="wrap"><div class="ph rv"><div class="no disp">05</div><h1 class="disp">Contact</h1><p>ติดต่อสั่งงาน ✦ ขอบคุณที่สนใจงานเรานะคะ (´▽`ʃ♡ƪ)</p></div><div class="chn rv"><a class="chc" style="--c:#e08fb0" href="mailto:lyveaforwork@gmail.com"><i>✉</i><b>Email</b><span>lyveaforwork@gmail.com</span></a><a class="chc" style="--c:#4f9bd0" href="https://twitter.com/LyveaForWork" target="_blank" rel="noopener"><i>𝕏</i><b>Twitter</b><span>@LyveaForWork</span></a><a class="chc" style="--c:#e0655f" href="https://www.youtube.com/@LyveaVEve" target="_blank" rel="noopener"><i>▶</i><b>YouTube</b><span>@LyveaVEve</span></a><a class="chc" style="--c:#a98bd0" href="https://vgen.co/LyveaV_Eve" target="_blank" rel="noopener"><i>★</i><b>VGen</b><span>LyveaV_Eve</span></a></div><h3 class="sec disp rv">Studio at a glance</h3><div class="glance rv" id="glance" data-r></div><h3 class="sec disp rv">Partners · นักวาดโมเดล</h3><p class="mono rv" style="margin:-4px 0 12px">จ้างพาร์ทเนอร์วาดโมเดล มีส่วนลดพิเศษ</p><div class="xgrid rv"><a class="xc" data-h="804_lunchB" style="--c:#4f9bd0" href="https://x.com/804_lunchB" target="_blank" rel="noopener"><div class="xb"></div><div class="xa">80</div><b>804_lunchB</b><span class="mono">@804_lunchB</span><span class="xf">𝕏 ดูโปรไฟล์ ↗</span></a><a class="xc" data-h="Meganejin_" style="--c:#e08fb0" href="https://x.com/Meganejin_" target="_blank" rel="noopener"><div class="xb"></div><div class="xa">ME</div><b>Meganejin_</b><span class="mono">@Meganejin_</span><span class="xf">𝕏 ดูโปรไฟล์ ↗</span></a><a class="xc" data-h="RLanz_Tn" style="--c:#5fbf86" href="https://x.com/RLanz_Tn" target="_blank" rel="noopener"><div class="xb"></div><div class="xa">RL</div><b>RLanz_Tn</b><span class="mono">@RLanz_Tn</span><span class="xf">𝕏 ดูโปรไฟล์ ↗</span></a></div><h3 class="sec disp rv">Assistants · ผู้ช่วย</h3><div class="xgrid rv"><div class="xc" style="--c:#a98bd0"><div class="xb"></div><div class="xa">AR</div><b>Antony Rex</b><span class="mono">Assistant</span></div><div class="xc" style="--c:#e3b341"><div class="xb"></div><div class="xa">KR</div><b>Kreecha</b><span class="mono">Assistant</span></div></div></div></section>
 
 <section class="page" id="p-edit"><div class="wrap">
   <div class="ph rv"><div class="no disp">✎</div><h1 class="disp">Edit</h1><p>หน้าแก้ไขสำหรับเจ้าของเว็บ · ใส่รหัสผ่านแอดมิน แล้วกด “บันทึกและเผยแพร่”</p></div>
@@ -299,7 +308,7 @@ function render(){
   $("menu4").innerHTML=PAGES.slice(1,5).map(p=>`<a href="#${p[0]}"><span class="mono">${p[1]}</span>${p[2]}<small>→</small></a>`).join("");
   $("tiers").innerHTML=D.tiers.map(x=>`<div class="card ${x.top?"top":""}"><h3 class="disp">${esc(x.n)}</h3><span class="tag">${x.top?esc(x.top):"Toggle "+esc(x.tg)}</span><div class="price">${fmt(x.p)} <small>฿</small></div><div class="row"><span>หัว</span>${AX(x.h)}</div><div class="row"><span>ร่างกาย</span>${AX(x.b)}</div><div class="row"><span>ฟิสิกส์</span><span>${esc(x.ph)}</span></div><div class="row"><span>แถม Toggle</span><span>${esc(x.tg)}</span></div><div class="row"><span>ระยะเวลา</span><span>${esc(x.t)}</span></div></div>`).join("");
   $("abody").innerHTML=D.addon.map(a=>`<tr><td>${esc(a[0])}</td><td><span class="pill">${esc(a[2])}</span></td><td class="r">${fmt(a[1])} ฿</td></tr>`).join("");
-  $("vgrid").innerHTML=VL.map((v,i)=>{const id=vid(v.id);return `<a class="vid" href="https://www.youtube.com/watch?v=${id}&list=${D.playlist||PL.split("list=")[1]}" target="_blank" rel="noopener"><div class="th"><img src="${v.img?esc(v.img):`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}" alt="" loading="lazy"><span class="pl">▶</span><em>${String(i+1).padStart(2,"0")}</em></div><p>${esc(v.title)}</p></a>`}).join("");
+  $("vgrid").innerHTML=VL.map((v,i)=>{const id=vid(v.id);return `<div class="vid" role="link" tabindex="0" data-u="https://www.youtube.com/watch?v=${id}&list=${D.playlist||PL.split("list=")[1]}"><div class="th"><img src="${v.img?esc(v.img):`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}" alt="" loading="lazy"><span class="pl">▶</span><em>${String(i+1).padStart(2,"0")}</em></div><p>${esc(v.title)}</p></div>`}).join("");
   qa(".th img").forEach(i=>i.addEventListener("error",()=>i.remove()));
   const fs=["All","WIP","Briefing","on hold","Finished"];
   $("filters").innerHTML=fs.map(f=>`<button class="${f===cur?"on":""}" data-f="${f}">${f}</button>`).join("");
@@ -307,6 +316,7 @@ function render(){
   $("qbody").innerHTML=D.queue.filter(r=>cur==="All"||r[5]===cur).map(r=>`<tr class="q-${String(r[5]).replace(" ","")}"><td>${esc(r[0])}</td><td>${ck(String(r[1]).startsWith("Com")?"Commercial":"Personal",r[1])}</td><td>${esc(r[2])}</td><td>${ck("o",r[3])}</td><td>${ck("o",r[4])}</td><td><span class="pill s-${String(r[5]).replace(" ","")}">${esc(r[5])}</span></td><td>${esc(r[6])}</td></tr>`).join("");
   glance();calcBuild();
 }
+$("vgrid").addEventListener("click",e=>{const v=e.target.closest(".vid");if(v)open(v.dataset.u,"_blank","noopener")});$("vgrid").addEventListener("keydown",e=>{if(e.key==="Enter"){const v=e.target.closest(".vid");if(v)open(v.dataset.u,"_blank","noopener")}});
 $("filters").addEventListener("click",e=>{if(e.target.dataset.f){cur=e.target.dataset.f;render()}});
 
 function glance(){
@@ -320,16 +330,17 @@ function glance(){
 let C={t:0,q:{},rush:0,proj:0};
 function calcBuild(){
   if(C.t>=D.tiers.length)C.t=0;
-  $("calc").innerHTML=`<h3 class="disp">🧮 คำนวณราคา</h3><div class="cgrid"><div><p class="mono" style="margin-bottom:6px">1 · เลือก Tier</p>${D.tiers.map((x,i)=>`<label class="co"><input type="radio" name="ct" value="${i}" ${i===C.t?"checked":""}><span>${esc(x.n)} · <b>${fmt(x.p)} ฿</b></span></label>`).join("")}</div><div><p class="mono" style="margin-bottom:6px">2 · Add-On และตัวเลือกเพิ่ม (ติ๊กเลือก)</p>${D.addon.map((a,i)=>`<label class="co"><input type="checkbox" data-ca="${i}" ${C.q[i]?"checked":""}><span>${esc(a[0])} · <b>+${fmt(a[1])} ฿</b></span></label>`).join("")}<label class="cf"><input type="checkbox" data-cf="rush" ${C.rush?"checked":""}>⚡ เร่งงาน (x1.5)</label><label class="cf"><input type="checkbox" data-cf="proj" ${C.proj?"checked":""}>📁 ต้องการไฟล์โปรเจ็ค (x2)</label></div></div><div class="ctot" id="ctot"></div>`;
+  $("calc").innerHTML=`<h3 class="disp">🧮 คำนวณราคา</h3><div class="cgrid"><div><p class="mono" style="margin-bottom:6px">1 · เลือก Tier</p>${D.tiers.map((x,i)=>`<label class="co"><input type="radio" name="ct" value="${i}" ${i===C.t?"checked":""}><span>${esc(x.n)} · <b>${fmt(x.p)} ฿</b></span></label>`).join("")}</div><div><p class="mono" style="margin-bottom:6px">2 · Add-On และตัวเลือกเพิ่ม</p>${D.addon.map((a,i)=>`<div class="ca"><span>${esc(a[0])} <small>+${fmt(a[1])} ฿</small></span><span class="qty"><button type="button" data-q="${i}:-1" aria-label="ลด">−</button><b id="qv${i}">${C.q[i]||0}</b><button type="button" data-q="${i}:1" aria-label="เพิ่ม">＋</button></span></div>`).join("")}<label class="cf"><input type="checkbox" data-cf="rush" ${C.rush?"checked":""}>⚡ เร่งงาน (x1.5)</label><label class="cf"><input type="checkbox" data-cf="proj" ${C.proj?"checked":""}>📁 ต้องการไฟล์โปรเจ็ค (x2)</label></div></div><div class="ctot" id="ctot"></div>`;
   calcSum();
 }
 function calcSum(){
   const t=D.tiers[C.t];if(!t)return;let add=0,lines="";
-  D.addon.forEach((a,i)=>{const q=+C.q[i]||0;if(q){add+=q*a[1];lines+=`<div>＋ ${esc(a[0])} = ${fmt(q*a[1])} ฿</div>`}});
+  D.addon.forEach((a,i)=>{const q=+C.q[i]||0;if(q){add+=q*a[1];lines+=`<div>＋ ${esc(a[0])} × ${q} = ${fmt(q*a[1])} ฿</div>`}});
   const sub=(+t.p||0)+add,m=(C.rush?1.5:1)*(C.proj?2:1),tot=sub*m;
   $("ctot").innerHTML=`<div>${esc(t.n)} = ${fmt(t.p)} ฿</div>${lines}<div>รวมก่อนตัวเลือกเพิ่ม = ${fmt(sub)} ฿</div>${C.rush?"<div>⚡ เร่งงาน × 1.5</div>":""}${C.proj?"<div>📁 ไฟล์โปรเจ็ค × 2</div>":""}<div class="t2">${fmt(Math.round(tot))} ฿</div><div style="font-size:12px;opacity:.8">* ราคาโดยประมาณ ยืนยันราคาจริงกับอีฟอีกครั้งนะคะ (ส่วนลดพาร์ทเนอร์ไม่รวม)</div>`;
 }
-$("calc").addEventListener("input",e=>{const t=e.target;if(t.name==="ct")C.t=+t.value;else if(t.dataset.ca!==undefined)C.q[t.dataset.ca]=t.checked?1:0;else if(t.dataset.cf)C[t.dataset.cf]=t.checked?1:0;calcSum()});
+$("calc").addEventListener("input",e=>{const t=e.target;if(t.name==="ct")C.t=+t.value;else if(t.dataset.cf)C[t.dataset.cf]=t.checked?1:0;calcSum()});
+$("calc").addEventListener("click",e=>{const b=e.target.closest("[data-q]");if(!b)return;const[i,d]=b.dataset.q.split(":");C.q[i]=Math.max(0,Math.min(9,(+C.q[i]||0)+(+d)));$("qv"+i).textContent=C.q[i];calcSum()});
 $("cbtn").onclick=()=>{$("calc").hidden=!$("calc").hidden};
 /* stars, sparkle, clock */
 let h="";["✦","✧","✶","⋆","★"].forEach((s,k)=>{for(let i=0;i<3;i++)h+=`<i style="left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${10+Math.random()*16}px;animation-delay:${(Math.random()*4).toFixed(1)}s">${s}</i>`});$("stars").innerHTML=h;
@@ -344,21 +355,28 @@ const mn=$("menu");$("mb").onclick=()=>mn.classList.add("open");$("mx").onclick=
 mn.addEventListener("click",e=>{if(e.target.closest("a"))mn.classList.remove("open")});
 /* page transition */
 let page=null,busy=false;const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
-const stars=qa("#cur i"),lab=$("curlab");
+const blue=$("cur").firstElementChild,lab=$("curlab");const fin=(a,ms)=>Promise.race([a.finished.catch(()=>{}),new Promise(r=>setTimeout(r,ms))]);
 function show(n){qa(".page").forEach(p=>p.classList.toggle("active",p.id==="p-"+n));scrollTo(0,0);qa("#p-"+n+" .rv").forEach((e,i)=>e.style.animationDelay=(i*90)+"ms")}
 async function go(n){
   if(!$("p-"+n))n="home";
   if(n===page)return;
   if(RM||page===null){page=n;show(n);return}
-  if(busy)return;busy=true;const meta=PAGES.find(p=>p[0]===n)||["edit","✎","EDIT"];
-  const H=innerHeight*1.1+10;
-  await Promise.all(stars.map((t,i)=>t.animate([{transform:`translateY(${H}px)`},{transform:"translateY(0)"}],{duration:820,delay:i*140,easing:"cubic-bezier(.4,0,.2,1)",fill:"forwards"}).finished));
-  lab.innerHTML=`${meta[2]}<small>${meta[1]}</small>`;
-  await lab.animate([{opacity:0,transform:"translateY(24px)"},{opacity:1,transform:"none"}],{duration:420,fill:"forwards",easing:"ease-out"}).finished;
-  page=n;show(n);await new Promise(r=>setTimeout(r,200));
-  lab.animate([{opacity:1},{opacity:0,transform:"translateY(-18px)"}],{duration:300,fill:"forwards"});
-  await Promise.all(stars.map((t,i)=>t.animate([{transform:"translateY(0)"},{transform:`translateY(${H}px)`}],{duration:900,delay:(2-i)*140,easing:"cubic-bezier(.5,0,.3,1)",fill:"forwards"}).finished));
-  busy=false;
+  if(busy)return;busy=true;
+  const guard=setTimeout(()=>{if(page!==n){page=n;show(n)}busy=false},6000);
+  try{
+    const meta=PAGES.find(p=>p[0]===n)||["edit","✎","EDIT"];
+    const S=Math.ceil(Math.hypot(innerWidth,innerHeight)/200)+1,ease="cubic-bezier(.65,0,.3,1)";
+    [blue,lab].forEach(t=>t.getAnimations().forEach(x=>x.cancel()));
+    await fin(blue.animate([{transform:"scale(0)"},{transform:`scale(${S})`}],{duration:800,easing:ease,fill:"forwards"}),1600);
+    lab.innerHTML=`<svg viewBox="-50 -50 100 100" width="96" height="96" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(0)"><path pathLength="1" d="M0 0V-44M0-15L-8-23M0-15L8-23M0-29L-6-35M0-29L6-35" style="stroke-dasharray:1;stroke-dashoffset:1"/></g><g transform="rotate(60)"><path pathLength="1" d="M0 0V-44M0-15L-8-23M0-15L8-23M0-29L-6-35M0-29L6-35" style="stroke-dasharray:1;stroke-dashoffset:1"/></g><g transform="rotate(120)"><path pathLength="1" d="M0 0V-44M0-15L-8-23M0-15L8-23M0-29L-6-35M0-29L6-35" style="stroke-dasharray:1;stroke-dashoffset:1"/></g><g transform="rotate(180)"><path pathLength="1" d="M0 0V-44M0-15L-8-23M0-15L8-23M0-29L-6-35M0-29L6-35" style="stroke-dasharray:1;stroke-dashoffset:1"/></g><g transform="rotate(240)"><path pathLength="1" d="M0 0V-44M0-15L-8-23M0-15L8-23M0-29L-6-35M0-29L6-35" style="stroke-dasharray:1;stroke-dashoffset:1"/></g><g transform="rotate(300)"><path pathLength="1" d="M0 0V-44M0-15L-8-23M0-15L8-23M0-29L-6-35M0-29L6-35" style="stroke-dasharray:1;stroke-dashoffset:1"/></g></svg>${esc(meta[2])}`;
+    lab.animate([{opacity:0},{opacity:1}],{duration:250,fill:"forwards"});
+    lab.querySelectorAll("path").forEach((p,k)=>p.animate([{strokeDashoffset:1},{strokeDashoffset:0}],{duration:650,delay:k*50,easing:"ease-out",fill:"forwards"}));
+    await new Promise(r=>setTimeout(r,900));
+    page=n;show(n);
+    await fin(lab.animate([{opacity:1},{opacity:0}],{duration:250,fill:"forwards"}),600);
+    await fin(blue.animate([{transform:`scale(${S})`},{transform:"scale(0)"}],{duration:800,easing:ease,fill:"forwards"}),1600);
+  }catch(e){if(page!==n){page=n;show(n)}}
+  clearTimeout(guard);busy=false;
 }
 addEventListener("hashchange",()=>go((location.hash||"#home").slice(1)));
 /* intro */
@@ -419,6 +437,8 @@ try{canEdit=!!sessionStorage.getItem("pw")}catch(e){}
  try{const r=await fetch("/api/data",{cache:"no-store"});if(r.ok){D=await r.json();D.videos=D.videos||[];VL=D.videos;render();eform()}}catch(e){}
  try{const r=await fetch("/api/playlist?list="+encodeURIComponent(D.playlist||""));if(r.ok){const j=await r.json();if(j.items&&j.items.length){VL=j.items.map(x=>({id:x.id,title:x.title,img:x.thumb}));render()}}}catch(e){}
 })();
+(async()=>{try{const hs=qa(".xc[data-h]").map(a=>a.dataset.h);if(!hs.length)return;const r=await fetch("/api/x-profiles?u="+encodeURIComponent(hs.join(",")));if(!r.ok)return;const j=await r.json();(j.users||[]).forEach(u=>{const a=qa(".xc[data-h]").find(x=>x.dataset.h.toLowerCase()===String(u.username).toLowerCase());if(!a)return;if(u.avatar){const im=new Image();im.alt="";im.onload=()=>{a.querySelector(".xa").innerHTML="";a.querySelector(".xa").appendChild(im)};im.src=u.avatar}
+a.querySelector("b").textContent=u.name||u.username;const m=a.querySelector(".mono");m.textContent="@"+u.username+(u.followers!=null?" · "+fmt(u.followers)+" followers":"");if(u.bio){const p=document.createElement("p");p.className="xbio";p.textContent=u.bio;m.after(p)}})}catch(e){}})();
 render();eform();go((location.hash||"#home").slice(1));
 </script>
 </body>
