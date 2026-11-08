@@ -287,7 +287,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--soft);padding:2
 </div></section>
 
 <section class="page" id="p-queue"><div class="wrap">
-  <div class="ph rv"><div class="no disp">03</div><h1 class="disp">Queue</h1><p>สถานะคิวงานปัจจุบัน · <span class="mono" id="stt2"></span></p></div>
+  <div class="ph rv"><div class="no disp">03</div><h1 class="disp">Queue</h1><p>สถานะคิวงานปัจจุบัน · <span class="mono" id="stt2"></span><span class="mono" id="syncst"></span></p></div>
   <div class="filters rv" id="filters" data-r></div>
   <div class="scroll rv"><table style="min-width:600px"><thead><tr><th>Name</th><th>Type</th><th>Tier</th><th>Platform</th><th>Payment</th><th>Progress</th><th>Month</th></tr></thead><tbody id="qbody" data-r></tbody></table></div>
 </div></section>
@@ -455,9 +455,10 @@ $("cpj").onclick=async()=>{const j=JSON.stringify(D,null,1);try{await navigator.
 try{canEdit=!!sessionStorage.getItem("pw")}catch(e){}
 (async()=>{
  try{const r=await fetch("/api/data",{cache:"no-store"});if(r.ok){D=await r.json();D.videos=D.videos||[];VL=D.videos;render();eform();loadXAv()}}catch(e){}
- try{const r=await fetch("/api/sheet");if(r.ok){const j=await r.json();if(j.queue&&j.queue.length){D.queue=j.queue;if(j.status)D.status=j.status;if(j.updated)D.updated=j.updated;SHEET=true;render();eform()}}}catch(e){}
+ await syncSheet();setInterval(syncSheet,20000);
  try{const r=await fetch("/api/playlist?list="+encodeURIComponent(D.playlist||""));if(r.ok){const j=await r.json();if(j.items&&j.items.length){VL=j.items.map(x=>({id:x.id,title:x.title,img:x.thumb}));render()}}}catch(e){}
 })();
+async function syncSheet(){const el=$("syncst");try{const r=await fetch("/api/sheet");const j=await r.json().catch(()=>({}));if(r.ok&&j.queue&&j.queue.length){D.queue=j.queue;if(j.status)D.status=j.status;if(j.updated)D.updated=j.updated;SHEET=true;render();if(el)el.textContent=" · ซิงก์ชีตแล้ว "+new Date().toLocaleTimeString("th-TH")}else if(el)el.textContent=" · เชื่อมชีตไม่ได้: "+(j.error||("HTTP "+r.status))}catch(e){if(el)el.textContent=" · เชื่อมชีตไม่ได้ (ไม่พบ /api/sheet)"}}
 function loadXAv(){qa(".xc[data-h]").forEach(a=>{const h=a.dataset.h,mm=D.xavatars||{},m=mm[h]||mm[h.toLowerCase()],e=encodeURIComponent(h),urls=(m?[m]:[]).concat(["https://unavatar.io/x/"+e+"?ttl=1h&fallback=false","https://unavatar.io/twitter/"+e+"?ttl=1h&fallback=false"]);const nx=i=>{if(i>=urls.length)return;const im=new Image();im.alt="";im.referrerPolicy="no-referrer";im.onload=()=>{const x=a.querySelector(".xa");x.innerHTML="";x.appendChild(im)};im.onerror=()=>nx(i+1);im.src=urls[i]};nx(0)})}
 loadXAv();
 render();eform();go((location.hash||"#home").slice(1));
